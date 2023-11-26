@@ -1,0 +1,95 @@
+.mainContainer {
+    
+}
+
+.comicWrapper {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 10px;
+    flex-wrap: wrap;
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+}
+
+.comicImgContainer {
+    display: inline-block;
+    /* padding: 1px; */
+    border-width: 1px;
+    border-color: #000;
+    border-style: solid;
+    width: 45%;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.comicImgContainer:hover {
+    opacity: 0.5;
+    cursor: pointer;
+}
+
+.comicImg {
+    vertical-align: middle;
+    width: 100%;
+}
+
+
+/* Small devices (portrait tablets and large phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+    .comicImgContainer {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        max-width: 250px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .comicImgContainer {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        max-width: 300px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .comicImgContainer {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        max-width: 290px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .comicImgContainer {
+        margin-top: 8px;
+        margin-bottom: 8px;
+        max-width: 350px;
+    }
+}
+
+/* Extra extra large devices (large laptops and desktops, 1400px and up) */
+@media only screen and (min-width: 1400px) {
+    .comicImgContainer {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        max-width: 300px;
+    }
+}
+
+@media print {
+    .comicImgContainer {
+        margin-top: 10px;
+        margin-bottom: 10px;
+        max-width: 300px;
+    }
+    .comicWrapper {
+        border: none;
+    }
+    .mainContainer {
+        max-width: 100%;
+    }
+}

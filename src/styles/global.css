@@ -17,3 +17,50 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 } */
+
+/* Default - Extra small devices (phones, 576px and down) */
+
+.container, .container-sm, .container-md, .container-lg {
+  max-width: 100%;
+  padding: 12px;
+  margin: auto;
+}
+
+/* @media only screen and (max-width: 600px) {
+  
+} */
+
+/* Small devices (portrait tablets and large phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+  .container, .container-sm {
+    max-width: 540px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+  .container, .container-sm, .container-md {
+    max-width: 720px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .container, .container-sm, .container-md, .container-lg {
+    max-width: 960px;
+  }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+  .container, .container-sm, .container-md, .container-lg {
+    max-width: 1140px;
+  }
+}
+
+/* Extra extra large devices (large laptops and desktops, 1400px and up) */
+@media only screen and (min-width: 1400px) {
+  .container, .container-sm, .container-md, .container-lg {
+    max-width: 1320px;
+  }
+}
