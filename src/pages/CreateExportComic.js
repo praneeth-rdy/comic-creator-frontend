@@ -31,7 +31,7 @@ function CreateExportComic({ panelSize }) {
       return newPanelsInfo;
     });
 
-    if (status === 'idle') {
+    if (status === 'idle' && imageUrl) {
       setComicPanels((prevPanels) => {
         const newPanels = [...prevPanels];
         newPanels[index] = {
@@ -99,14 +99,32 @@ function CreateExportComic({ panelSize }) {
       {(currentWorkingPanelIndex >= 0 && currentWorkingPanelIndex < panelSize) && (
         <div className={`${styles.modalOverlay}`} onClick={closePanel}>
           <div className={`${styles.modalContent}`} onClick={(e) => e.stopPropagation()}>
-            <span className={`${styles.modalCloseButton}`} onClick={closePanel}>
-              &times;
-            </span>
-            Hi There
-            <input value={currentWorkingPanelPrompt} onChange={(e) => (setCurrentWorkingPanelPrompt(e.target.value))} />
-            <button onClick={() => (generatePanelImage(currentWorkingPanelIndex, currentWorkingPanelPrompt))}>
-              Generate
-            </button>
+            <div className={`${styles.modalHeader}`}>
+              <span className={`${styles.modalCloseButton}`} onClick={closePanel}>
+                &times;
+              </span>
+            </div>
+            <div className={`${styles.modalBody}`}>
+              <div className={`${styles.modalImageContainer}`}>
+                <img className={`${styles.modalImage}`} src={comicPanels[currentWorkingPanelIndex].imageUrl} />
+              </div>
+              <form onSubmit={(e) => { e.preventDefault(); generatePanelImage(currentWorkingPanelIndex, currentWorkingPanelPrompt) }} className={`${styles.modalActionsContainer}`}>
+                <input
+                  className={`${styles.modalInput}`}
+                  disabled={comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading'}
+                  value={currentWorkingPanelPrompt}
+                  onChange={(e) => (setCurrentWorkingPanelPrompt(e.target.value))}
+                  placeholder='Enter Prompt...'
+                />
+                <button
+                  type='submit'
+                  className={`${styles.modalButton}`}
+                  disabled={comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading'}
+                >
+                  Generate
+                </button>
+              </form>
+            </div>
           </div>
         </div>
       )}
