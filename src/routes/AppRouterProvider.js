@@ -15,7 +15,9 @@ const router = createBrowserRouter([
       element: <CreateExportComic panelSize={10} />,
       // errorElement: <SiteError />
   },
-]);
+], {
+  basename: '/comic-creator-frontend'
+});
 
 
 function AppRouterProvider() {
