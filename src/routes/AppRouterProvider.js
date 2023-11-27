@@ -1,8 +1,9 @@
 import React from 'react';
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
-import SiteError from '../pages/SiteError';
-import CreateExportComic from '../pages/CreateExportComic';
+
 import Home from '../pages/Home';
+import CreateExportComic from '../pages/CreateExportComic';
+import SiteError from '../pages/SiteError';
 
 const router = createBrowserRouter([
     {

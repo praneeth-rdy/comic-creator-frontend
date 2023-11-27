@@ -5,6 +5,10 @@
     justify-content: center;
 }
 
+.pageContent {
+    font-family: monospace;
+}
+
 .entryButtonContainer {
     padding: 5px 0;
 }
