@@ -26,7 +26,7 @@ function Home() {
         <div className={styles.entryButtonContainer}>
           <div className={styles.entryButton} onClick={changeDirectory}>
             <span className={styles.pcUsername}>
-              praneeth-rdy@github:~$
+              praneeth-rdy@dashtoon:~$
             </span>
             <span className={styles.pcCommand}>
               cd create-export-comic
@@ -36,10 +36,10 @@ function Home() {
         <div className={styles.entryButtonContainer}>
           <a className={styles.entryButton} href='https://github.com/praneeth-rdy'>
             <span className={styles.pcUsername}>
-              praneeth-rdy@github:~$
+              praneeth-rdy@dashtoon:~$
             </span>
             <span className={styles.pcCommand}>
-              cd ./github/praneeth-rdy
+              cd github/praneeth-rdy
             </span>
           </a>
         </div>

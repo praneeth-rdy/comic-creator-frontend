@@ -1,8 +1,5 @@
 // Installed Libraries
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import html2canvas from 'html2canvas';
-import { FaArrowLeft, FaDownload, FaInfo } from 'react-icons/fa';
 
 // Project Components
 import ComicWrapper from '../components/ComicWrapper';
@@ -11,6 +8,7 @@ import GenerateImageModal from '../components/GenerateImageModal';
 // Static Files
 import styles from '../styles/pages/CreateExportComic.module.css';
 import sampleImg from '../assets/sample.png';
+import InfoSection from '../components/InfoSection';
 
 
 function CreateExportComic({ panelSize }) {
@@ -20,8 +18,6 @@ function CreateExportComic({ panelSize }) {
   const [comicPanelsInfo, setComicPanelsInfo] = useState(Array(panelSize).fill({ currentStatus: 'idle', queryPrompt: '' }));
   const [currentWorkingPanelIndex, setCurrentWorkingPanelIndex] = useState(-1);
   const [currentWorkingPanelPrompt, setCurrentWorkingPanelPrompt] = useState('');
-
-  const navigate = useNavigate();
 
   const openPanel = (panelIndex) => {
     if (panelIndex >= 0 && panelIndex < panelSize) {
@@ -34,46 +30,9 @@ function CreateExportComic({ panelSize }) {
     setCurrentWorkingPanelIndex(-1);
   }
 
-  const exportSnap = () => {
-    html2canvas(document.getElementById("comic-wrapper")).then((canvas) => {
-      // Convert the canvas content to a data URL
-      const dataURL = canvas.toDataURL('image/png');
-
-      // Create a download link
-      const downloadLink = document.createElement('a');
-      downloadLink.href = dataURL;
-      downloadLink.download = 'comic_strip.png';
-
-      // Trigger the download
-      downloadLink.click();
-    });
-  }
-
-  const navigateBack = () => {
-    navigate('..');
-  }
-
   return (
     <div className={`container ${styles.mainContainer}`}>
-      <div className={styles.infoContainer}>
-        <div className={`${styles.pageActionsContainer}`}>
-          <div className={`${styles.iconContainer}`} onClick={navigateBack}>
-            <FaArrowLeft className={styles.icon} />
-          </div>
-        </div>
-        <div className={styles.infoText}>
-          The following is a sample comic strip.
-          Click on any image and generate new images as per your need by entering the prompt.
-        </div>
-        <div className={`${styles.pageActionsContainer}`}>
-          <div className={`${styles.iconContainer}`} onClick={exportSnap}>
-            <FaDownload className={styles.icon} />
-          </div>
-          <div className={`${styles.iconContainer}`}>
-            <FaInfo className={styles.icon} />
-          </div>
-        </div>
-      </div>
+      <InfoSection />
       <ComicWrapper
         comicPanels={comicPanels}
         openPanel={openPanel}
