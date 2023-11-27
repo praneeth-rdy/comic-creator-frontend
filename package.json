@@ -1,6 +1,6 @@
 {
   "name": "comic-creator-frontend",
-  "homepage": "https://praneeth-rdy.github.io/dashtoon-ccwa",
+  "homepage": ".",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
