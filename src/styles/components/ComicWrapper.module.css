@@ -14,7 +14,7 @@
 .comicImgContainer {
     display: inline-block;
     /* padding: 1px; */
-    border-width: 1px;
+    border-width: 2px;
     border-color: #000;
     border-style: solid;
     width: 45%;

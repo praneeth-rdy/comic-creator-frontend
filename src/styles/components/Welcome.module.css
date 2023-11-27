@@ -1,0 +1,67 @@
+.welcomeTextContainer {
+    display: inline-block;
+    position: relative;
+    margin: 10px 0;
+}
+
+.welcomeText {
+    display: inline-block;
+    font-size: 18px;
+    font-weight: 800;
+    font-family: monospace;
+    white-space: nowrap;
+    padding-right: 4px; 
+    color: #171421;
+}
+
+.welcomeTextCursor {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 6px;
+    background-color: #000;
+    animation: blink 0.4s infinite; 
+}
+
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+
+/* Small devices (portrait tablets and large phones, 576px and up) */
+@media only screen and (min-width: 576px) {
+    .welcomeText {
+        font-size: 24px;
+    }
+  }
+  
+  /* Medium devices (landscape tablets, 768px and up) */
+  @media only screen and (min-width: 768px) {
+    .welcomeText {
+        font-size: 28px;
+    }
+  }
+  
+  /* Large devices (laptops/desktops, 992px and up) */
+  @media only screen and (min-width: 992px) {
+    .welcomeText {
+        font-size: 34px;
+    }
+  }
+  
+  /* Extra large devices (large laptops and desktops, 1200px and up) */
+  @media only screen and (min-width: 1200px) {
+    
+  }
+  
+  /* Extra extra large devices (large laptops and desktops, 1400px and up) */
+  @media only screen and (min-width: 1400px) {
+    
+  }

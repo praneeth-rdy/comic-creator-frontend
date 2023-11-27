@@ -1,15 +1,16 @@
 // Installed Libraries
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import html2canvas from 'html2canvas';
-import { FaDownload, FaInfo } from 'react-icons/fa';
+import { FaArrowLeft, FaDownload, FaInfo } from 'react-icons/fa';
 
 // Project Components
+import ComicWrapper from '../components/ComicWrapper';
 import GenerateImageModal from '../components/GenerateImageModal';
 
 // Static Files
 import styles from '../styles/pages/CreateExportComic.module.css';
 import sampleImg from '../assets/sample.png';
-import ComicWrapper from '../components/ComicWrapper';
 
 
 function CreateExportComic({ panelSize }) {
@@ -19,6 +20,8 @@ function CreateExportComic({ panelSize }) {
   const [comicPanelsInfo, setComicPanelsInfo] = useState(Array(panelSize).fill({ currentStatus: 'idle', queryPrompt: '' }));
   const [currentWorkingPanelIndex, setCurrentWorkingPanelIndex] = useState(-1);
   const [currentWorkingPanelPrompt, setCurrentWorkingPanelPrompt] = useState('');
+
+  const navigate = useNavigate();
 
   const openPanel = (panelIndex) => {
     if (panelIndex >= 0 && panelIndex < panelSize) {
@@ -46,11 +49,21 @@ function CreateExportComic({ panelSize }) {
     });
   }
 
+  const navigateBack = () => {
+    navigate('..');
+  }
+
   return (
     <div className={`container ${styles.mainContainer}`}>
       <div className={styles.infoContainer}>
+        <div className={`${styles.pageActionsContainer}`}>
+          <div className={`${styles.iconContainer}`} onClick={navigateBack}>
+            <FaArrowLeft className={styles.icon} />
+          </div>
+        </div>
         <div className={styles.infoText}>
-          Tap on any image to begin with
+          The following is a sample comic strip.
+          Click on any image and generate new images as per your need by entering the prompt.
         </div>
         <div className={`${styles.pageActionsContainer}`}>
           <div className={`${styles.iconContainer}`} onClick={exportSnap}>
