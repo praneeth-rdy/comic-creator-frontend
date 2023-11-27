@@ -1,0 +1,19 @@
+# Trigger the workflow on push or pull request
+name: Build and Export the static build to the 'build' branch
+on:
+  push:
+    branches: [ "main" ]
+jobs:
+  build-and-export:
+    name: Build and export the react application to the `build` branch
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+      - name: Build and export with the latest action rev
+        uses: praneeth-rdy/static-build-export-action@main
+        env:
+          CI: false
+          PROJECT_DIR: .
+          BUILD_BRANCH: build
+          TOKEN: ${{ secrets.ACTIONS_TOKEN }}
