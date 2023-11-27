@@ -126,9 +126,49 @@
 }
 
 .modalButton:disabled {
-    background-color: grey;
+    /* background-color: grey; */
+    background-color: #3eb0ef;
     cursor: default;
 }
+
+/* Spinner.css */
+
+.spinnerContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.spinner {
+    border: 4px solid #3eb0ef;
+    border-top: 3px solid #fff;
+    border-left: 3px solid #fff;
+    border-radius: 50%;
+    min-width: 18px;
+    min-height: 18px;
+    animation: spin 1s ease-in-out infinite;
+}
+
+.loadingText, .errorText {
+    max-width: 250px;
+    margin: 0 auto;
+    font-size: 12px;
+    text-align: center;
+}
+
+.loadingText {
+    color: #171421;
+}
+
+.errorText {
+    color: red;
+}
+  
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+  
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 768px) {
@@ -145,6 +185,10 @@
     .modalCloseButton {
         font-size: 30px;
     }
+
+    .loadingText, .errorText {
+        max-width: 400px;
+    }
 }
 
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -159,5 +203,9 @@
     }
     .modalButton {
         padding: 15px 20px;
+    }
+
+    .loadingText, .errorText {
+        max-width: 500px;
     }
 }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styles from '../styles/components/GenerateImageModal.module.css';
 import { query } from '../utilities';
 
@@ -13,7 +13,10 @@ function GenerateImageModal({
     setCurrentWorkingPanelPrompt,
 }) {
 
-    const updatePanelStatus = (index, status, options) => {
+    const [err, setErr] = useState('');
+
+    const updatePanelStatus = (index, status, options={}) => {
+        
         const { queryPrompt, imageUrl } = options;
         setComicPanelsInfo((prevPanelsInfo) => {
             const newPanelsInfo = [...prevPanelsInfo];
@@ -45,6 +48,12 @@ function GenerateImageModal({
     }
 
     const generatePanelImage = (index, queryPrompt) => {
+
+        if(!queryPrompt.trim()) {
+            updatePanelStatus(index, 'error');
+            setErr("I can't process empty prompts :(");
+            return;
+        }
         // set the status
         updatePanelStatus(index, 'loading', { queryPrompt });
 
@@ -54,8 +63,12 @@ function GenerateImageModal({
             updatePanelStatus(index, 'idle', { imageUrl });
         }).catch((err) => {
             updatePanelStatus(index, 'error');
+            setErr("Oops! There's some technical glitch. Please try again.");
         });
     };
+
+    let isLoading = comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading';
+    let isError = comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'error';
 
 
     return (
@@ -77,7 +90,7 @@ function GenerateImageModal({
                     <form onSubmit={(e) => { e.preventDefault(); generatePanelImage(currentWorkingPanelIndex, currentWorkingPanelPrompt) }} className={`${styles.modalActionsContainer}`}>
                         <input
                             className={`${styles.modalInput}`}
-                            disabled={comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading'}
+                            disabled={isLoading}
                             value={currentWorkingPanelPrompt}
                             onChange={(e) => (setCurrentWorkingPanelPrompt(e.target.value))}
                             placeholder='Enter Prompt...'
@@ -85,11 +98,33 @@ function GenerateImageModal({
                         <button
                             type='submit'
                             className={`${styles.modalButton}`}
-                            disabled={comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading'}
+                            disabled={isLoading}
                         >
-                            Generate
+                            {
+                                (isLoading) ? (
+                                    <div className={styles.spinnerContainer}>
+                                        <div className={styles.spinner}></div>
+                                    </div>
+                                ) : 'Generate'
+                            }
                         </button>
                     </form>
+                    {
+                        isLoading && (
+                            <div className={`${styles.loadingText}`}>
+                                You are allowed to work on other comic panels while we generate this for you.
+                            </div>
+                        )
+                    }
+
+                    {
+                        isError && (
+                            <div className={`${styles.errorText}`}>
+                                {err}
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
         </div>
