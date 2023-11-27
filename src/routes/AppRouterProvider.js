@@ -8,7 +8,7 @@ import CreateExportComic from '../pages/CreateExportComic';
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <CreateExportComic />,
+        element: <CreateExportComic panelSize={10} />,
         errorElement: <SiteError />
     },
 ]);
