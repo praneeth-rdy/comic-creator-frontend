@@ -8,12 +8,12 @@ const router = createBrowserRouter([
     {
         path: "/",
         element: <Home />,
-        errorElement: <SiteError />
+        // errorElement: <SiteError />
     },
     {
       path: "/create-export-comic",
       element: <CreateExportComic panelSize={10} />,
-      errorElement: <SiteError />
+      // errorElement: <SiteError />
   },
 ]);
 
