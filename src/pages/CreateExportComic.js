@@ -1,8 +1,16 @@
+// Installed Libraries
 import React, { useState } from 'react';
-import styles from '../styles/pages/ComicPanel.module.css';
-import sampleImg from '../assets/sample.png';
 import html2canvas from 'html2canvas';
+import { FaDownload, FaInfo } from 'react-icons/fa';
+
+// Project Components
 import GenerateImageModal from '../components/GenerateImageModal';
+
+// Static Files
+import styles from '../styles/pages/CreateExportComic.module.css';
+import sampleImg from '../assets/sample.png';
+import ComicWrapper from '../components/ComicWrapper';
+
 
 function CreateExportComic({ panelSize }) {
   // Array stores panel objects with properties: imageUrl, currentStatus, queryPrompt
@@ -40,22 +48,23 @@ function CreateExportComic({ panelSize }) {
 
   return (
     <div className={`container ${styles.mainContainer}`}>
-      <div>
-        <button onClick={exportSnap}>
-          Export
-        </button>
-      </div>
-      <div id='comic-wrapper' className={`${styles.comicWrapper}`}>
-        {comicPanels.map((panel, index) => (
-          <div key={index} className={`${styles.comicImgContainer}`} onClick={() => (openPanel(index))}>
-            <img
-              className={`${styles.comicImg}`}
-              src={panel.imageUrl}
-              alt='Comic Panel'
-            />
+      <div className={styles.infoContainer}>
+        <div className={styles.infoText}>
+          Tap on any image to begin with
+        </div>
+        <div className={`${styles.pageActionsContainer}`}>
+          <div className={`${styles.iconContainer}`} onClick={exportSnap}>
+            <FaDownload className={styles.icon} />
           </div>
-        ))}
+          <div className={`${styles.iconContainer}`}>
+            <FaInfo className={styles.icon} />
+          </div>
+        </div>
       </div>
+      <ComicWrapper
+        comicPanels={comicPanels}
+        openPanel={openPanel}
+      />
       {(currentWorkingPanelIndex >= 0 && currentWorkingPanelIndex < panelSize) && (
         <GenerateImageModal
           closePanel={closePanel}

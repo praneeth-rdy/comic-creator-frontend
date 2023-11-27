@@ -1,0 +1,43 @@
+.mainContainer {
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.infoContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 12px 0;
+}
+
+.infoText {
+    color: #454545;
+}
+
+.pageActionsContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+.iconContainer {
+    color: #fff;
+    padding: 10px 12px;
+    margin: 0 5px;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    background-color: #3eb0ef;
+    transition: background-color 0.3s ease;
+}
+
+.iconContainer:hover {
+    background-color: #2e96ce;
+    cursor: pointer;
+}
+
+.icon {
+    font-size: 18px;
+}
