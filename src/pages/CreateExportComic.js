@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from '../styles/pages/ComicPanel.module.css';
 import sampleImg from '../assets/sample.png';
 import html2canvas from 'html2canvas';
-import { query } from '../utilities';
+import GenerateImageModal from '../components/GenerateImageModal';
 
 function CreateExportComic({ panelSize }) {
   // Array stores panel objects with properties: imageUrl, currentStatus, queryPrompt
@@ -11,50 +11,6 @@ function CreateExportComic({ panelSize }) {
   const [comicPanelsInfo, setComicPanelsInfo] = useState(Array(panelSize).fill({ currentStatus: 'idle', queryPrompt: '' }));
   const [currentWorkingPanelIndex, setCurrentWorkingPanelIndex] = useState(-1);
   const [currentWorkingPanelPrompt, setCurrentWorkingPanelPrompt] = useState('');
-
-  const updatePanelStatus = (index, status, options) => {
-    const { queryPrompt, imageUrl } = options;
-    setComicPanelsInfo((prevPanelsInfo) => {
-      const newPanelsInfo = [...prevPanelsInfo];
-      if (status === 'loading') {
-        newPanelsInfo[index] = {
-          ...prevPanelsInfo[index],
-          currentStatus: status,
-          queryPrompt
-        };
-      } else if (status === 'error' || status === 'idle') {
-        newPanelsInfo[index] = {
-          ...prevPanelsInfo[index],
-          currentStatus: status,
-        };
-      }
-      return newPanelsInfo;
-    });
-
-    if (status === 'idle' && imageUrl) {
-      setComicPanels((prevPanels) => {
-        const newPanels = [...prevPanels];
-        newPanels[index] = {
-          ...prevPanels[index],
-          imageUrl,
-        };
-        return newPanels;
-      });
-    }
-  }
-
-  const generatePanelImage = (index, queryPrompt) => {
-    // set the status
-    updatePanelStatus(index, 'loading', { queryPrompt });
-
-    // Fetch and update based on success or failure
-    query(queryPrompt).then((imageBlob) => {
-      const imageUrl = URL.createObjectURL(imageBlob);
-      updatePanelStatus(index, 'idle', { imageUrl });
-    }).catch((err) => {
-      updatePanelStatus(index, 'error');
-    });
-  };
 
   const openPanel = (panelIndex) => {
     if (panelIndex >= 0 && panelIndex < panelSize) {
@@ -92,41 +48,25 @@ function CreateExportComic({ panelSize }) {
       <div id='comic-wrapper' className={`${styles.comicWrapper}`}>
         {comicPanels.map((panel, index) => (
           <div key={index} className={`${styles.comicImgContainer}`} onClick={() => (openPanel(index))}>
-            <img className={`${styles.comicImg}`} src={panel.imageUrl} />
+            <img
+              className={`${styles.comicImg}`}
+              src={panel.imageUrl}
+              alt='Comic Panel'
+            />
           </div>
         ))}
       </div>
       {(currentWorkingPanelIndex >= 0 && currentWorkingPanelIndex < panelSize) && (
-        <div className={`${styles.modalOverlay}`} onClick={closePanel}>
-          <div className={`${styles.modalContent}`} onClick={(e) => e.stopPropagation()}>
-            <div className={`${styles.modalHeader}`}>
-              <span className={`${styles.modalCloseButton}`} onClick={closePanel}>
-                &times;
-              </span>
-            </div>
-            <div className={`${styles.modalBody}`}>
-              <div className={`${styles.modalImageContainer}`}>
-                <img className={`${styles.modalImage}`} src={comicPanels[currentWorkingPanelIndex].imageUrl} />
-              </div>
-              <form onSubmit={(e) => { e.preventDefault(); generatePanelImage(currentWorkingPanelIndex, currentWorkingPanelPrompt) }} className={`${styles.modalActionsContainer}`}>
-                <input
-                  className={`${styles.modalInput}`}
-                  disabled={comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading'}
-                  value={currentWorkingPanelPrompt}
-                  onChange={(e) => (setCurrentWorkingPanelPrompt(e.target.value))}
-                  placeholder='Enter Prompt...'
-                />
-                <button
-                  type='submit'
-                  className={`${styles.modalButton}`}
-                  disabled={comicPanelsInfo[currentWorkingPanelIndex].currentStatus === 'loading'}
-                >
-                  Generate
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
+        <GenerateImageModal
+          closePanel={closePanel}
+          comicPanels={comicPanels}
+          setComicPanels={setComicPanels}
+          comicPanelsInfo={comicPanelsInfo}
+          setComicPanelsInfo={setComicPanelsInfo}
+          currentWorkingPanelIndex={currentWorkingPanelIndex}
+          currentWorkingPanelPrompt={currentWorkingPanelPrompt}
+          setCurrentWorkingPanelPrompt={setCurrentWorkingPanelPrompt}
+        />
       )}
     </div>
   );
